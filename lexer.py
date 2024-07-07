@@ -15,6 +15,7 @@ class Lexer:
         while self.next_token():
             print(".", end='')
         print("")
+        self.tokenList = filter(lambda token: token.token_type.name != "SPACE", self.tokenList)
         return self.tokenList
 
     def next_token(self) -> bool:
