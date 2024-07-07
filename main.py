@@ -1,6 +1,11 @@
 from lexer import Lexer
 
-CODE = "TEST= (3-5); p TEST;"
+CODE = """
+    TEST = 5 + 9 + (4 - 6); 
+    p TEST;
+    OUT = TEST + 30;
+    p OUT + TEST - 10;
+"""
 
 lexer = Lexer(CODE)
 lexer.analysis()
