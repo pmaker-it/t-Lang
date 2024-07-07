@@ -1,7 +1,9 @@
 from lexer import Lexer
 
-CODE = "55555"
+CODE = "TEST= (3-5); p TEST;"
 
 lexer = Lexer(CODE)
 lexer.analysis()
-print(lexer.tokenList[0].text)
+lexer.print_token_list()
+
+

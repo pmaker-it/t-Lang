@@ -13,7 +13,8 @@ class Lexer:
 
     def analysis(self) -> list[LexToken]:
         while self.next_token():
-            print(len(self.tokenList))
+            print(".", end='')
+        print("")
         return self.tokenList
 
     def next_token(self) -> bool:
@@ -23,9 +24,13 @@ class Lexer:
         for item in range(len(token_types_values)):
             token_type = token_types_values[item]
             result = re.match(token_type.regex, self.code[self.pos:])
-            if result:
+            if result and result[0]:
                 lex_token = LexToken(token_type, result[0], self.pos)
                 self.pos += len(result[0])
                 self.tokenList.append(lex_token)
                 return True
         raise Exception(f"На позиции {self.pos} обнаружена ошибка")
+
+    def print_token_list(self):
+        for t in self.tokenList:
+            print(f"{t.pos}: {t.token_type.name} [{t.text}]")
