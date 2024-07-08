@@ -11,5 +11,4 @@ TokenTypesDict = {
     "SUB": TokenType(name="SUB", regex=r"\-"),
     "LPAR": TokenType(name="LPAR", regex=r"\("),
     "RPAR": TokenType(name="RPAR", regex=r"\)"),
-
 }
