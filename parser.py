@@ -1,4 +1,3 @@
-import tokenTypesDict
 from AST.binOperatorNode import BinOperatorNode
 from AST.expressionNode import ExpressionNode
 from AST.numberNode import NumberNode
@@ -85,3 +84,34 @@ class Parser:
                 self.pos += 1
                 return current_token
         return None
+
+    def run(self, node: ExpressionNode):
+        if isinstance(node, NumberNode):
+            return int(node.number.text)
+
+        if isinstance(node, UnarOperator):
+            match node.operator.token_type.name:
+                case "PRINT":
+                    print(node.operand)
+                    return
+
+        if isinstance(node, BinOperatorNode):
+            match node.operator.token_type.name:
+                case "ADD":
+                    return self.run(node.leftNode) + self.run(node.rightNode)
+                case "ASSIGN":
+                    result = self.run(node.rightNode)
+                    variable_node: VariableNode = node.leftNode
+                    self.scope[variable_node.variable.text] = result
+
+        if isinstance(node, VariableNode):
+            if self.scope[node.variable.text]:
+                return self.scope[node.variable.text]
+            else:
+                raise Exception(f"Переменная с названием ${node.variable.text} не обнаружена")
+
+        if isinstance(node, StatementsNode):
+            for code_string in node.code_strings:
+                self.run(code_string)
+
+        raise Exception("Ошибка!")

@@ -21,3 +21,5 @@ parser = Parser(parse_tokens)
 
 root_node = parser.parse_code()
 print("AST построено!")
+
+parser.run(root_node)
